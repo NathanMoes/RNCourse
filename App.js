@@ -4,7 +4,11 @@ import { Button, StyleSheet, Text, View } from "react-native";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Communism was a mistake! Capitalism will reign!</Text>
+      <Text
+        style={{ margin: 10, borderColor: "red", borderWidth: 2, padding: 10 }}
+      >
+        Communism was a mistake! Capitalism will reign!
+      </Text>
       <Button title="click me" />
     </View>
   );
