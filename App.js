@@ -1,11 +1,20 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Button } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
 export default function App() {
   const [goals, setGoals] = useState([]);
+  const [modalVis, setModalVis] = useState(false);
+
+  const deleteGoalHandler = (id) => {
+    setGoals((prev) => {
+      return prev.filter((item) => {
+        return item.id !== id;
+      });
+    });
+  };
 
   const addGoalHandler = (goalText) => {
     setGoals((prev) => {
@@ -13,14 +22,23 @@ export default function App() {
     });
   };
 
+  const modleToggle = () => setModalVis(true);
+
   return (
     <View style={styles.appContainer}>
-      <GoalInput onAddGoal={addGoalHandler} />
+      <Button title={"Add new goal"} color={"#5e0acc"} onPress={modleToggle} />
+      <GoalInput onAddGoal={addGoalHandler} visible={modalVis} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={goals}
           renderItem={(itemData) => {
-            return <GoalItem text={itemData.item.text} />;
+            return (
+              <GoalItem
+                text={itemData.item.text}
+                onDelete={deleteGoalHandler}
+                id={itemData.item.id}
+              />
+            );
           }}
           keyExtractor={(item, index) => {
             return item.id;
