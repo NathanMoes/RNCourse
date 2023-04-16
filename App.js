@@ -30,31 +30,38 @@ export default function App() {
   const modleToggle = () => setModalVis(true);
 
   return (
-    <View style={styles.appContainer}>
-      <Button title={"Add new goal"} color={"#5e0acc"} onPress={modleToggle} />
-      <GoalInput
-        onAddGoal={addGoalHandler}
-        visible={modalVis}
-        onCancel={endAddGoalHandler}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={goals}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                text={itemData.item.text}
-                onDelete={deleteGoalHandler}
-                id={itemData.item.id}
-              />
-            );
-          }}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <Button
+          title={"Add new goal"}
+          color={"#5e0acc"}
+          onPress={modleToggle}
         />
+        <GoalInput
+          onAddGoal={addGoalHandler}
+          visible={modalVis}
+          onCancel={endAddGoalHandler}
+        />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={goals}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  text={itemData.item.text}
+                  onDelete={deleteGoalHandler}
+                  id={itemData.item.id}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -63,7 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 50,
     paddingHorizontal: 16,
-    backgroundColor: "#1e085a",
   },
   goalsContainer: {
     flex: 5,
