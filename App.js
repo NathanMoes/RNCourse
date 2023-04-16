@@ -20,6 +20,11 @@ export default function App() {
     setGoals((prev) => {
       return [...prev, { text: goalText, id: Math.random().toString() }];
     });
+    setModalVis(false);
+  };
+
+  const endAddGoalHandler = () => {
+    setModalVis(false);
   };
 
   const modleToggle = () => setModalVis(true);
@@ -27,7 +32,11 @@ export default function App() {
   return (
     <View style={styles.appContainer}>
       <Button title={"Add new goal"} color={"#5e0acc"} onPress={modleToggle} />
-      <GoalInput onAddGoal={addGoalHandler} visible={modalVis} />
+      <GoalInput
+        onAddGoal={addGoalHandler}
+        visible={modalVis}
+        onCancel={endAddGoalHandler}
+      />
       <View style={styles.goalsContainer}>
         <FlatList
           data={goals}
